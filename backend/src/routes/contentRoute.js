@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 const contentRouter = express.Router();
 
 /**
@@ -55,4 +55,4 @@ contentRouter.delete("/:id", function (req, res) {});
  */
 contentRouter.get("/recent", function (req, res) {});
 
-module.exports = contentRouter;
+export default contentRouter;

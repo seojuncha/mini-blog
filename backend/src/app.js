@@ -1,13 +1,12 @@
-const express = require("express");
-const contentRouter = require("./routes/contentRoute");
+import express from "express";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./swagger.js";
+import contentRouter from "./routes/contentRoute.js";
 
-const swaggerUi = require("swagger-ui-express");
-const swaggerSpec = require("./swagger");
+import cors from "cors";
+import dotenv from "dotenv";
 
-const cors = require("cors");
-
-// Load .env file
-require("dotenv").config();
+dotenv.config();
 
 const app = express();
 const port = process.env.LISTEN_PORT || 8989;
