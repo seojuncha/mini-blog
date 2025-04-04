@@ -13,6 +13,7 @@ Backend
 - Express
 
 Database
+- PostgreSQL
 - MongoDB
 
 Authentication

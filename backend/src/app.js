@@ -1,7 +1,7 @@
 import express from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./swagger.js";
-import contentRouter from "./routes/contentRoute.js";
+import postRouter from "./routes/postRoute.js";
 
 import cors from "cors";
 import dotenv from "dotenv";
@@ -20,7 +20,7 @@ app.use(cors());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
-app.use("/content", contentRouter);
+app.use("/post", postRouter);
 
 // First test routes for index
 app.get("/", (req, res) => {
