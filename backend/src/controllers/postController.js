@@ -1,11 +1,16 @@
 import { nanoid } from "nanoid";
 import prisma from "../utils/prismaClient.js";
 
-const createPost = async (userId, title, content) => {
+const createPost = async ({
+  userId,
+  postPubId = nanoid(12),
+  title,
+  content,
+}) => {
   try {
-    const post = await prisma.post.create({
+    return await prisma.post.create({
       data: {
-        publicId: nanoid(12),
+        publicId: postPubId,
         title: title,
         content: content,
         author: {
@@ -15,7 +20,6 @@ const createPost = async (userId, title, content) => {
         },
       },
     });
-    return post.publicId;
   } catch (err) {
     console.log(err);
     return null;
@@ -26,16 +30,19 @@ const getPostSummary = async (postPublicId) => {
   return null;
 };
 
-const getPost = async (postPublicId) => {
-  return null;
+const getPost = async (postPubId) => {
+  try {
+    return await prisma.post.findUnique({
+      where: { publicId: postPubId },
+    });
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
 };
 
 const removePost = async () => {
   return null;
 };
 
-const addComment = async () => {
-  return null;
-};
-
-export { createPost, removePost, addComment };
+export { createPost, getPost, removePost };

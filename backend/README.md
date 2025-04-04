@@ -31,7 +31,9 @@ Step 4.
 - Connect APIs with controllers
 
 Step 5.
-- Authentication/Authorize
+- Session control
+- Authentication & Authorize
+- Error handling
 
 ## Database
 
