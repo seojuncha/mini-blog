@@ -6,14 +6,14 @@ $ npm run dev
 ```
 
 ## How to implement?
-Step 1.
+Step 1. (Done)
 - Configure directory and code structure
 - Attach Swagger
 - Check Points
   - Route working
   - Database connection
 
-Step 2. 
+Step 2. (Done)
 - Database modelling
 - Define prisma schema
 - Migrating
@@ -30,6 +30,8 @@ Step 4.
   - Define error codes and messages
 - Connect APIs with controllers
 
+Step 5.
+- Authentication/Authorize
 
 ## Database
 
@@ -159,6 +161,12 @@ Table PostTag {
   tag_id int [ref: > Tag.id]
   Note: "Composite Key"
 }
+```
+
+## Test
+Setup
+```shell
+$ npm install --save-dev jest @jest/globals supertest
 ```
 
 ## NOTE
