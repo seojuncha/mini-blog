@@ -1,12 +1,12 @@
 import { nanoid } from "nanoid";
 import prisma from "../utils/prismaClient.js";
 
-// Called in user registration API
-const createUser = async ({ name, email }) => {
+// Called in user signup API
+const createUser = async ({ pubId = nanoid(12), name, email }) => {
   try {
     return await prisma.user.create({
       data: {
-        publicId: nanoid(12),
+        publicId: pubId,
         name: name,
         email: email,
       },

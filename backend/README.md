@@ -19,7 +19,7 @@ Step 2. (Done)
 - Migrating
 
 Step 3.
-- Create controllers
+- Create basic controllers
 - Check read/write performance for database
   - Write a test code
   - Summary test results
@@ -34,6 +34,9 @@ Step 5.
 - Session control
 - Authentication & Authorize
 - Error handling
+
+Step 6. 
+- Add features
 
 ## Database
 
@@ -74,7 +77,6 @@ $ sudo -u postgresql psql
 postgres=# alter user devuser createdb;
 postgres=# \du
 ```
-
   - On express server
 ```shell
 $ npx prisma migrate dev --name {historical name}

@@ -46,3 +46,38 @@ describe("Basic CRUD for user", () => {
     });
   });
 });
+
+describe("User related post", () => {
+  let dummyUser;
+  beforeAll(async () => {
+    await prisma.post.deleteMany();
+    await prisma.user.deleteMany();
+
+    dummyUser = await prisma.user.create({
+      data: {
+        publicId: nanoid(12),
+        name: "dummy",
+        email: "test@email.com",
+      },
+    });
+
+    const post1 = await createPost({
+      userId: dummyUser.id,
+      title: "test post title 1",
+      content: "test contents",
+    });
+    // console.log(post1);
+
+    const post2 = await createPost({
+      userId: dummyUser.id,
+      title: "test post title 2",
+      content: "test contents",
+    });
+    // console.log(post2);
+  });
+
+  it("get all posts for user", async () => {
+    const myPosts = await getMyPosts(dummyUser.id);
+    expect(myPosts.length).toBe(2);
+  });
+});
