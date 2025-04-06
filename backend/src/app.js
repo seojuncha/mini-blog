@@ -4,12 +4,8 @@ import swaggerSpec from "./swagger.js";
 import postRouter from "./routes/postRoute.js";
 
 import cors from "cors";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const app = express();
-const port = process.env.LISTEN_PORT || 8989;
 
 // Use json response
 app.use(express.json());
@@ -20,14 +16,18 @@ app.use(cors());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
-app.use("/post", postRouter);
+app.use("/posts", postRouter);
 
-// First test routes for index
+app.use("/signup");
+
+app.use("/login");
+
+app.use("/logout");
+
+// Test routing path
 app.get("/", (req, res) => {
   console.log("Index page");
   res.send("It's index page");
 });
 
-app.listen(port, () => {
-  console.log(`Sever is running on http://localhost:${port}`);
-});
+export default app;

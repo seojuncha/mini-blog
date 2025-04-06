@@ -12,28 +12,23 @@ import prisma from "../utils/prismaClient.js";
 //  Cache? Users have more chance to click the posts presented in the first page,
 //  should be loaded fast!
 const getRecentPosts = async (limit = 10) => {
-  try {
-    const posts = await prisma.post.findMany({
-      orderBy: { createDate: "desc" },
-      take: limit,
-      select: {
-        title: true,
-        content: true,
-        tags: true,
-        createDate: true,
-      },
+  const posts = await prisma.post.findMany({
+    orderBy: { createDate: "desc" },
+    take: limit,
+    select: {
+      title: true,
+      content: true,
+      tags: true,
+      createDate: true,
+    },
+  });
+  // TODO: Move to converter.
+  posts.map((post) => {
+    post.createDate = new Date(post.createDate).toLocaleString("ko-KR", {
+      timeZone: "Asia/Seoul",
     });
-    // TODO: Move to converter.
-    posts.map((post) => {
-      post.createDate = new Date(post.createDate).toLocaleString("ko-KR", {
-        timeZone: "Asia/Seoul",
-      });
-    });
-    return posts;
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
+  });
+  return posts;
 };
 
 const getPostSummary = async (pubId) => {
@@ -43,14 +38,9 @@ const getPostSummary = async (pubId) => {
 // Called If user clicks the post summary(card?)
 // Unauthorized user also can watch.
 const getPostDetail = async (pubId) => {
-  try {
-    return await prisma.post.findUnique({
-      where: { publicId: pubId },
-    });
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
+  return await prisma.post.findUnique({
+    where: { publicId: pubId },
+  });
 };
 
 /**
@@ -89,16 +79,11 @@ const createPost = async ({
 };
 
 const removePost = async (pubId) => {
-  try {
-    return await prisma.post.delete({
-      where: {
-        publicId: pubId,
-      },
-    });
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
+  return await prisma.post.delete({
+    where: {
+      publicId: pubId,
+    },
+  });
 };
 
 export { getRecentPosts, getPostDetail, createPost, removePost };

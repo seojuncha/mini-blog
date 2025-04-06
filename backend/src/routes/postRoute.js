@@ -1,12 +1,35 @@
 import express from "express";
-import { createPost } from "../controllers/postController.js";
+import {
+  getRecentPosts,
+  createPost,
+  removePost,
+  getPostDetail,
+} from "../controllers/postController.js";
 
 const postRouter = express.Router();
 
 /**
  * @swagger
- * /post/:
- *  post:
+ * /posts/:
+ *  get:
+ *    summary: Get the recent content list
+ */
+postRouter.get("/", async (req, res) => {
+  const posts = await getRecentPosts();
+  console.log(posts);
+  if (posts === null) {
+    res.status(500).json({ message: "internal server error" });
+  } else if (posts.length === 0) {
+    res.sendStatus(204);
+  } else {
+    res.status(200).json(posts);
+  }
+});
+
+/**
+ * @swagger
+ * /posts/:
+ *  posts:
  *    summary: Create a new post
  *    requestBody:
  *      content:
@@ -22,7 +45,7 @@ const postRouter = express.Router();
  *              - title
  *              - content
  *    responses:
- *      200:
+ *      201:
  *        description: Returns an identification number for the new post
  *        content:
  *          application/json:
@@ -35,18 +58,42 @@ const postRouter = express.Router();
  */
 postRouter.post("/", async (req, res) => {
   console.log(req.body);
-  const { title, content } = req.body;
-  const postId = await createPost(title, content);
-  if (postId === null) {
-    res.status(500).json({ message: "error" });
+  // Where should be an user id? in body? in header? may depend on session control.
+  const { title, summary, content } = req.body;
+  const createdPost = await createPost({
+    userId: 1,
+    title: title,
+    summary: summary,
+    content: content,
+  });
+  if (createdPost === null) {
+    // Have to define error codes.
+    res.status(500).json({ message: "internal server error" });
   } else {
-    res.status(201).json({ id: postId });
+    res.status(201).json({ id: createdPost.publicId });
   }
 });
 
 /**
  * @swagger
- * /post/{id}:
+ * /posts/{id}:
+ *   delete:
+ *     summary: Remove the post
+ */
+postRouter.delete("/:id", async (req, res) => {
+  // Need a return value?
+  const removedPost = await removePost(req.body.id);
+  if (removedPost === null) {
+    res.status(500).json({ message: "internal server error" });
+  } else {
+    // 204: No Content
+    res.sendStatus(204);
+  }
+});
+
+/**
+ * @swagger
+ * /posts/{id}:
  *   put:
  *     summary: Update a post
  *     parameters:
@@ -63,26 +110,17 @@ postRouter.put("/:id", function (req, res) {});
 
 /**
  * @swagger
- * /post/{id}:
+ * /posts/{id}:
  *   get:
  *     summary: Get a post
  */
-postRouter.get("/:id", function (req, res) {});
-
-/**
- * @swagger
- * /post/{id}:
- *   delete:
- *     summary: Remove the post
- */
-postRouter.delete("/:id", function (req, res) {});
-
-/**
- * @swagger
- * /post/recent:
- *   get:
- *     summary: Get the recent content list
- */
-postRouter.get("/recent", function (req, res) {});
+postRouter.get("/:id", async (req, res) => {
+  const post = await getPostDetail(req.body.id);
+  if (post === null) {
+  } else {
+    // How about big contents?
+    res.status(200).json(post);
+  }
+});
 
 export default postRouter;
