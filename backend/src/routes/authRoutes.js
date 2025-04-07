@@ -5,18 +5,20 @@ export default authRouter = express.Router();
 
 // Login through email address
 authRouter.post("/login", (req, res) => {
-  const { email, password } = req.body;
+  // console.log(req.body);
+  const { name, email, password } = req.body;
+  console.log("try to login:", name);
   authenticate(email, password, (arg) => {
+    // NOTE: 'success' is just user defined property in req.session
+    req.session.success = arg.success;
     if (arg.success) {
-      // what is this?
-      req.session.success = "succes??";
-      console.log(req.session);
-
-      // test only now.
+      req.session.regenerate(() => {
+        req.session.userid = arg.publicId;
+      });
       res.sendStatus(200);
     } else {
-      // test only now.
-      res.sendStatus(401);
+      req.session.err = arg.err;
+      res.send(401).json(req.session.err);
     }
   });
 });

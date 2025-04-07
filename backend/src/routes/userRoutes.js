@@ -18,7 +18,9 @@ userRouter.post("/signup", async (req, res) => {
     // decision point: auto login? redirect to the login page?
     //  redirect!
     // res.redirect("/login");
-    res.sendStatus(201);
+
+    // debug only
+    res.status(201).json(newUser);
   }
 });
 

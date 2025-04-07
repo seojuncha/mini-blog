@@ -11,10 +11,15 @@ export const authenticate = async (email, password, callback) => {
     },
   });
   if (user) {
-    const result = await bcrypt.compare(password, user.password);
-    if (result) callback({ success: true, user: user });
-    else callback({ success: false, message: "auth error" });
+    if (password === user.password) {
+      callback({
+        success: true,
+        publicId: user.publicId,
+      });
+    } else {
+      callback({ success: false, err: "auth error" });
+    }
   } else {
-    callback({ success: false, message: "no user" });
+    callback({ success: false, err: "cannot find the user" });
   }
 };

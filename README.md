@@ -1,53 +1,21 @@
-# mini-blog (Draft)
+# mini-blog
 Create my own blog service.
 
 ## What I want in this project?
 
-## Setup
-```shell
-``` 
 
 ## Tech Stacks
-Backend
+**Backend**
 - Node.js
 - Express
 
-Database
+**Database**
 - PostgreSQL
-- MongoDB
 
-Authentication
-- JWT
-
-Frontend
+**Frontend**
 - React
 - Vite
 - TypeScript
 
-Deploy
+**Deploy**
 - Docker
-
-
-## Requirement
-- An user can write contents
-- An user must be registered before using.
-- User Login
-- Admin Page
-
-## Note
-- Docker based
-- Thinking reasonable methods
-
-- Authorization
-  - Authorized user can
-    - write contents
-    - access my page
-    - leave comments
-    -  
-- Writing Contents
-  - Re
-- Reading Contents
-
-- Writing Comments
-
-- Reading Comments
