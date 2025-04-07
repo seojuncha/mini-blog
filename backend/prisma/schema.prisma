@@ -14,12 +14,14 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  publicId String    @unique
-  name     String
-  email    String    @unique
-  posts    Post[]
-  comments Comment[]
+  id         Int       @id @default(autoincrement())
+  publicId   String    @unique
+  name       String
+  email      String    @unique
+  password   String
+  createDate DateTime  @default(now())
+  posts      Post[]
+  comments   Comment[]
 }
 
 model Post {

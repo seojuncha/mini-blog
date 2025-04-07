@@ -24,7 +24,7 @@ Useful commands
 ## Migration
 # mini-blog/backend/
 $ npx prisma migrate reset
-$ npx prisma migrade dev --name {name}
+$ npx prisma migrate dev --name {name}
 ```
 
 - Problems

@@ -6,7 +6,7 @@ import {
 import prisma from "../src/utils/prismaClient.js";
 import { nanoid } from "nanoid";
 
-const cleanTables = async () => {
+export const cleanTables = async () => {
   await prisma.post.deleteMany();
   await prisma.user.deleteMany();
 };

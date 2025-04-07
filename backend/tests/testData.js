@@ -1,10 +1,25 @@
 import { nanoid } from "nanoid";
 
-export const testUserData = {
-  publicId: nanoid(12),
-  name: "dummy",
-  email: "test@email.com",
-};
+export const testUserData = [
+  {
+    publicId: nanoid(12),
+    name: "test user 1",
+    email: "testuser1@email.com",
+    password: "iamtester",
+  },
+  {
+    publicId: nanoid(12),
+    name: "test user 2",
+    email: "testuser2@email.com",
+    password: "iamtester",
+  },
+  {
+    publicId: nanoid(12),
+    name: "error user 2",
+    email: "testuser2@email.com", // same email with test user 2
+    password: "iamtester",
+  },
+];
 
 export const testFivePostsData = [
   { title: "title 1", content: "content 1" },

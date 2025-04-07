@@ -42,6 +42,11 @@ Step 6.
 ### Implmentation Note
 
 #### Session Management
+Use [express-session](https://expressjs.com/en/resources/middleware/session.html)
+```shell
+$ npm install express-session
+```
+
 
 #### Data Control
 
@@ -57,4 +62,5 @@ Step 6.
   - Random generated unique id: Use 'nanoid' module
 
 ## References
-- 
+- Session
+  - https://www.youtube.com/watch?v=GhrvZ5nUWNg
