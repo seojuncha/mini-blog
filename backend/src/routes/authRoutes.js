@@ -1,7 +1,7 @@
 import express from "express";
-import { authenticate } from "../controllers/authController";
+import { authenticate } from "../controllers/authController.js";
 
-export default authRouter = express.Router();
+const authRouter = express.Router();
 
 // Login through email address
 authRouter.post("/login", (req, res) => {
@@ -28,3 +28,5 @@ authRouter.get("/logout", (req, res) => {
     res.redirect("/");
   });
 });
+
+export default authRouter;

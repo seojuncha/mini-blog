@@ -6,6 +6,9 @@ import postRouter from "./routes/postRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import authRouter from "./routes/authRoutes.js";
 
+import PrismaSessionStore from "./utils/prismaSessionStore.js";
+import prisma from "./utils/prismaClient.js";
+
 import cors from "cors";
 
 const app = express();
@@ -14,6 +17,7 @@ app.use(express.json());
 app.use(cors());
 app.use(
   session({
+    store: new PrismaSessionStore(prisma),
     resave: false,
     saveUninitialized: false, // don't create session until something stored
     secret: "testauthsecret",

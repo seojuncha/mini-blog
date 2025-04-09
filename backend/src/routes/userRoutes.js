@@ -1,7 +1,7 @@
-import { createUser, getUser } from "../controllers/userController";
+import { createUser, getUser } from "../controllers/userController.js";
 import express from "express";
 
-export default userRouter = express.Router();
+const userRouter = express.Router();
 
 // user signup
 userRouter.post("/signup", async (req, res) => {
@@ -31,3 +31,5 @@ userRouter.get("/me", async (req, res) => {
     res.status(200).json(user);
   }
 });
+
+export default userRouter;

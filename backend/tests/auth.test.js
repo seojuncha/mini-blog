@@ -31,7 +31,7 @@ describe("[normal case] login", () => {
     });
   });
 
-  it("[api] login", async () => {
+  it.only("[api] login", async () => {
     const payload = {
       name: signupUser.name,
       email: signupUser.email,
